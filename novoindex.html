@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Equivalências</title>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px; 
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            color: #0056b3;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        
+        /* Estilos para o bloco de introdução */
+        .intro-box {
+            background-color: #f9f9f9; 
+            border: 1px solid #ddd; 
+            padding: 15px 20px; 
+            border-radius: 8px; 
+            margin-bottom: 20px;
+        }
+        .intro-box h3 { color: #333; margin-top: 0; }
+        .intro-box ul { list-style-type: none; padding-left: 0; }
+        .intro-box li { margin-bottom: 10px; }
+        
+        /* Estilos para o bloco de Resumo (Contador) */
+        .summary-box {
+            background-color: #e6f7ff; /* Tom de azul claro */
+            border: 1px solid #b3e0ff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .summary-box h3 { color: #0056b3; margin-top: 0; }
+        .summary-box p { margin: 8px 0; font-size: 1.1em; }
+        .summary-box strong { font-size: 1.15em; color: #004a99; }
+        
+        #searchInput {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box; 
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            /* REMOVIDO: white-space: nowrap; (para permitir quebra de linha) */
+        }
+        th {
+            background-color: #007bff; 
+            color: white;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .empty-message {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-style: italic;
+        }
+        
+        /* Estilos para os links no final */
+        .links-gerais {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .links-gerais h3 {
+            color: #333;
+        }
+        .links-gerais p {
+            font-size: 0.95em;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+        }
+        .btn-link {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 5px 10px;
+            transition: background-color 0.2s;
+            font-size: 1.1em;
+        }
+        .btn-link:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+        
+    </style>
+    </head>
+<body>
+
+    <div class="container">
+        <h1>Portfólio de Equivalência Acadêmica</h1>
+        <p>Documentação para solicitação de equivalência de disciplinas, com base em formações anteriores (Graduação 1, Graduação 2 e Pós-graduação).</p>
+
+        <div class="intro-box">
+            <h3>Formação Acadêmica e Profissional</h3>
+            <ul>
+                <li>
+                    <strong>Graduação 1:</strong> Análise e Desenvolvimento de Sistemas (Uninassau)<br>
+                    <small>(Jan 2019 a Dez 2021)</small>
+                </li>
+                <li>
+                    <strong>Pós-graduação:</strong> MBA em Gerenciamento de Projetos (Uninassau)<br>
+                    <small>(Mar 2022 a Out 2023)</small>
+                </li>
+                <li>
+                    <strong>Pós-graduação:</strong> Automação e Controle (Universidade Federal de Viçosa - MG)<br>
+                    <small>(Jan 2024 a Dez 2024)</small>
+                </li>
+                <li>
+                    <strong>Graduação Trancada:</strong> Engenharia Elétrica (Instituto Federal de Sergipe - IFS)<br>
+                    <small>(Iniciada em 2021)</small>
+                </li>
+            </ul>
+        </div>
+        <div class="summary-box">
+            <h3>Resumo da Solicitação</h3>
+            <p>Total de disciplinas da Matriz (Pio X) a serem cursadas: <strong>69</strong></p>
+            <p>Disciplinas com equivalência solicitada (nesta página): <strong id="disciplinasAtingidas">...</strong></p>
+            <p>Disciplinas restantes (a cursar): <strong id="disciplinasRestantes">...</strong></p>
+        </div>
+        <input type="text" id="searchInput" onkeyup="filtrarTabela()" placeholder="Buscar por disciplina, instituição, status...">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Disciplina Alvo (Pio X)</th>
+                    <th>CH Alvo</th>
+                    <th>Disciplina Cursada (Origem)</th>
+                    <th>CH Cursada</th>
+                    <th>Status</th>
+                    <th>Instituição de Origem</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaEquivalencias">
+                </tbody>
+        </table>
+        
+        <div class="links-gerais">
+            <h3>Links da Documentação Comprobatória</h3>
+            <p>Abaixo estão os links para os documentos completos (ementários e históricos) que comprovam as disciplinas listadas na tabela.</p>
+            <a href="https://drive.google.com/drive/folders/1Oed_HlxLxzyJ3D5eUsQbnhBYsMb16p44?usp=sharing" target="_blank" class="btn-link">Ver Ementas (Todas as Instituições)</a>
+            <a href="https://drive.google.com/drive/folders/1mtDtu8Q0SIVHmF8HcT1V41zuV_9ppK5Y?usp=sharing" target="_blank" class="btn-link">Ver Históricos (Todas as Instituições)</a>
+        </div>
+        </div>
+
+    <script>
+        // -----------------------------------------------------------
+        // PASSO 1: DADOS (Com todas as alterações e mesclagens)
+        // -----------------------------------------------------------
+        
+        const dadosEquivalencia = [
+            
+            // --- DADOS DA GRADUAÇÃO TRANCADA (IFS) ---
+            
+            {
+                disciplinaAlvo: "Desenho Técnico",
+                chAlvo: "45h",
+                disciplinaCursada: "Desenho Técnico",
+                chCursada: "60h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Optativa (Inglês Instrumental)", 
+                chAlvo: "—",
+                disciplinaCursada: "Inglês Instrumental",
+                chCursada: "30h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Introdução à Informática",
+                chAlvo: "30h",
+                disciplinaCursada: "Introdução à Ciência da Computação",
+                chCursada: "60h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Introdução ao Estudo da Engenharia",
+                chAlvo: "30h",
+                disciplinaCursada: "Introdução à Engenharia Elétrica",
+                chCursada: "30h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Química Geral I",
+                chAlvo: "45h",
+                disciplinaCursada: "Química Geral",
+                chCursada: "60h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Vetores e Geometria Analítica",
+                chAlvo: "60h",
+                disciplinaCursada: "Vetores e Geometria Analítica",
+                chCursada: "60h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Cálculo II",
+                chAlvo: "60h",
+                disciplinaCursada: "Cálculo II",
+                chCursada: "90h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Noções de Economia",
+                chAlvo: "30h",
+                disciplinaCursada: "Fundamentos de Economia",
+                chCursada: "45h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Linguagem e Técnicas de Programação",
+                chAlvo: "45h",
+                disciplinaCursada: "Linguagem de Programação",
+                chCursada: "60h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Métodos Matemáticos Aplicados",
+                chAlvo: "60h",
+                disciplinaCursada: "Métodos Matemáticos Aplicados",
+                chCursada: "60h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Probabilidade",
+                chAlvo: "45h",
+                disciplinaCursada: "Probabilidade e Estatística",
+                chCursada: "60h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Ciência dos Materiais",
+                chAlvo: "60h",
+                disciplinaCursada: "Resistência dos Materiais<br>Ciência e Tecnologia dos Materiais",
+                chCursada: "60h + 45h = <strong>105h</strong>",
+                status: "Aprovado (Grupo)", // ATUALIZADO (Status corrigido)
+                instituicao: "Engenharia Elétrica (IFS)" // MANTIDO (Pois são Aprovados)
+            },
+            {
+                disciplinaAlvo: "Psicologia do Trabalho / Ética Profissional (correlata)",
+                chAlvo: "30h",
+                disciplinaCursada: "Educação e Diversidade",
+                chCursada: "45h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Optativa (Tecnologia Mecânica)",
+                chAlvo: "—",
+                disciplinaCursada: "Tecnologia Mecânica",
+                chCursada: "60h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Optativa (Empreendedorismo)",
+                chAlvo: "—",
+                disciplinaCursada: "Empreendedorismo",
+                chCursada: "60h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Engenharia de Segurança",
+                chAlvo: "45h",
+                disciplinaCursada: "Saúde, Meio Ambiente e Segurança no Trabalho",
+                chCursada: "30h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            {
+                disciplinaAlvo: "Microcontroladores e Microprocessadores",
+                chAlvo: "75h",
+                disciplinaCursada: "Arquitetura e Organização de Computadores",
+                chCursada: "45h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Redes de Computadores",
+                chAlvo: "45h",
+                disciplinaCursada: "Redes de Computadores",
+                chCursada: "45h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Sistemas Digitais",
+                chAlvo: "60h",
+                disciplinaCursada: "Laboratório de Redes de Computadores",
+                chCursada: "75h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Microcontroladores e Microprocessadores",
+                chAlvo: "75h",
+                disciplinaCursada: "Sistemas Operacionais<br>ETL.548 - Controladores Logicos Programaveis",
+                chCursada: "60h + 45h = <strong>105h</strong>",
+                status: "Equivalência (Grupo 4)",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)<br>Pós-graduação (UFV)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Administração Geral",
+                chAlvo: "30h",
+                disciplinaCursada: "Fundamentos de Administração",
+                chCursada: "60h",
+                status: "Aproveitado",
+                instituicao: "Análise e Dev. de Sistemas (Uninassau)" // ATUALIZADO
+            },
+            {
+                disciplinaAlvo: "Optativa (Libras)",
+                chAlvo: "—",
+                disciplinaCursada: "Libras",
+                chCursada: "60h",
+                status: "Aprovado",
+                instituicao: "Engenharia Elétrica (IFS)"
+            },
+            
+            // --- DADOS DA PÓS-GRADUAÇÃO (UFV) - MESCLADOS ---
+            
+            {
+                disciplinaAlvo: "EE112177 - Teoria de Controle",
+                chAlvo: "60h",
+                disciplinaCursada: "ETL.541 - Fundamentos Matematicos em controle<br>ETL.545 - Modelagem de Sistemas Dinamicos<br>ETL.546 - Projetos de sistemas de Controle",
+                chCursada: "45h + 45h + 45h = <strong>135h</strong>",
+                status: "Equivalência (Grupo 1)",
+                instituicao: "Pós-graduação (UFV)"
+            },
+            {
+                disciplinaAlvo: "EE112171 - Modelagem e Simulação de Sistemas Dinamicos",
+                chAlvo: "60h",
+                disciplinaCursada: "ETL.541 - Fundamentos Matematicos em controle<br>ETL.545 - Modelagem de Sistemas Dinamicos",
+                chCursada: "45h + 45h = <strong>90h</strong>",
+                status: "Equivalência (Grupo 2)",
+                instituicao: "Pós-graduação (UFV)"
+            },
+            {
+                disciplinaAlvo: "EE112184 - Instrumentação e Sensores",
+                chAlvo: "75h",
+                disciplinaCursada: "ETL.550 - Instrumentação Eletronica<br>ETL.551 - Sistemas de Automação Agricola e Industrial<br>ETL.552 - Supervisão de Processos Agrícola e Industrial",
+                chCursada: "45h + 45h + 45h = <strong>135h</strong>",
+                status: "Equivalência (Grupo 3)",
+                instituicao: "Pós-graduação (UFV)"
+            }
+            
+            // O ÚLTIMO item da lista NÃO tem vírgula
+            
+            // --- FIM DA ÁREA DE DADOS ---
+        ];
+
+        // -----------------------------------------------------------
+        // PASSO 2: CÓDIGO DE FUNCIONALIDADE (Com renderização de HTML)
+        // -----------------------------------------------------------
+        
+        const tabelaBody = document.getElementById('tabelaEquivalencias');
+        const searchInput = document.getElementById('searchInput');
+
+        // Função para renderizar (desenhar) a tabela com os dados
+        function renderizarTabela(dados) {
+            // Limpa a tabela antes de desenhar
+            tabelaBody.innerHTML = '';
+
+            // Se não houver dados, mostra aviso
+            if (dados.length === 0) {
+                const colspan = 6;
+                if (dadosEquivalencia.length === 0) {
+                    tabelaBody.innerHTML = `<tr><td colspan="${colspan}" class="empty-message">Nenhuma disciplina cadastrada. Edite o arquivo .html para adicionar seus dados.</td></tr>`;
+                } else {
+                    tabelaBody.innerHTML = `<tr><td colspan="${colspan}" class="empty-message">Nenhuma disciplina encontrada para sua busca.</td></tr>`;
+                }
+                return;
+            }
+
+            // Cria uma linha (<tr>) para cada item nos dados
+            dados.forEach(item => {
+                const row = document.createElement('tr');
+                
+                const cellAlvo = document.createElement('td');
+                cellAlvo.innerHTML = item.disciplinaAlvo; 
+                row.appendChild(cellAlvo);
+                
+                const cellCHAlvo = document.createElement('td');
+                cellCHAlvo.textContent = item.chAlvo; 
+                row.appendChild(cellCHAlvo);
+
+                const cellCursada = document.createElement('td');
+                cellCursada.innerHTML = item.disciplinaCursada; 
+                row.appendChild(cellCursada);
+                
+                const cellCHCursada = document.createElement('td');
+                cellCHCursada.innerHTML = item.chCursada; 
+                row.appendChild(cellCHCursada);
+                
+                const cellStatus = document.createElement('td');
+                cellStatus.textContent = item.status; 
+                row.appendChild(cellStatus);
+
+                const cellInstituicao = document.createElement('td');
+                cellInstituicao.innerHTML = item.instituicao; 
+                row.appendChild(cellInstituicao);
+
+                tabelaBody.appendChild(row);
+            });
+        }
+
+        // Função para filtrar a tabela
+        function filtrarTabela() {
+            const termoBusca = searchInput.value.toLowerCase();
+
+            const dadosFiltrados = dadosEquivalencia.filter(item => {
+                // Remove tags HTML da busca para corresponder ao texto puro
+                const disciplinaAlvoTexto = item.disciplinaAlvo.replace(/<br>/g, ' ').toLowerCase();
+                const disciplinaCursadaTexto = item.disciplinaCursada.replace(/<br>/g, ' ').toLowerCase();
+                const instituicaoTexto = item.instituicao.replace(/<br>/g, ' ').toLowerCase();
+                
+                return disciplinaAlvoTexto.includes(termoBusca) ||
+                       disciplinaCursadaTexto.includes(termoBusca) ||
+                       instituicaoTexto.includes(termoBusca) ||
+                       item.status.toLowerCase().includes(termoBusca);
+            });
+
+            // Redesenha a tabela apenas com os dados filtrados
+            renderizarTabela(dadosFiltrados);
+        }
+
+        // Renderiza a tabela E CALCULA O RESUMO pela primeira vez
+        document.addEventListener('DOMContentLoaded', () => {
+            // Renderiza a tabela
+            renderizarTabela(dadosEquivalencia);
+            
+            // --- CÁLCULO DO RESUMO (Lógica inalterada, conta nomes únicos) ---
+            const totalMatriz = 69;
+            
+            const disciplinasUnicas = new Set(
+                dadosEquivalencia.map(item => item.disciplinaAlvo)
+            );
+            
+            const atingidas = disciplinasUnicas.size;
+            const restantes = totalMatriz - atingidas;
+            
+            // Atualiza o HTML
+            document.getElementById('disciplinasAtingidas').textContent = atingidas;
+            document.getElementById('disciplinasRestantes').textContent = restantes;
+            // --- FIM DO CÁLCULO ---
+        });
+
+    </script>
+    </body>
+</html>
